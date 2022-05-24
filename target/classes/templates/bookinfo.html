@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>bookinfo</title>
+    <link rel="stylesheet" href="././css/bookinfo.css">
+</head>
+<body>
+<div id="root">
+    <span>
+        <h1>查看图书信息
+        <img th:src="@{/images/logo.jpeg}">
+
+        </h1>
+    </span>
+
+    <div id="Block" class="block">
+        <table th:object="${book}">
+            <tr>
+                <th>名称:</th>
+                <td th:text="*{bookName}"></td>
+            </tr>
+            <tr>
+                <th>作者:</th>
+                <td th:text="*{author}"></td>
+            </tr>
+            <tr>
+                <th>出版年:</th>
+                <td th:text="*{publishYear}"></td>
+            </tr>
+            <tr>
+                <th>数量:</th>
+                <td th:text="*{amount}"></td>
+            </tr>
+            <tr>
+                <th>简介:</th>
+                <td th:text="*{brief}"></td>
+            </tr>
+        </table>
+        <div id="back_button">
+            <a th:href="@{/index}"><button class="btn">返回</button></a>
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

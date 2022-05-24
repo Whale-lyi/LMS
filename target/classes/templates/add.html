@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+    <link rel="stylesheet" href="././css/add.css">
+</head>
+<body>
+<div id="root">
+    <span>
+        <h1>添加新图书
+        <img th:src="@{/images/logo.jpeg}">
+
+        </h1>
+    </span>
+
+    <div id="leftBlock" class="block">
+        <ul>
+            <li>
+                <a th:href="@{/index}">首页</a>
+            </li>
+            <li >
+                <a th:href="@{/record}">我的借阅中图书</a>
+            </li>
+            <li>
+                <a th:href="@{/borrowRecord}">我的借出记录</a>
+            </li>
+            <li>
+                <a th:href="@{/returnRecord}">我的归还记录</a>
+            </li>
+            <li th:if="${session.loginUser.username} == 'admin'" >
+                <a th:href="@{/allRecords}" >查看全部用户借阅记录</a>
+            </li>
+            <li id="currentPage" th:if="${session.loginUser.username} == 'admin'">
+                <a th:href="@{/add}" >添加新的图书</a>
+            </li>
+            <li>
+                <a th:href="@{/}" id="quit">注销</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="rightBlock" class="block">
+        <form th:action="@{/add}" method="post">
+            <table>
+                <tr>
+                    <th>名称: </th>
+                    <td><input type="text" name="bookName" class="text"/></td>
+                </tr>
+                <tr>
+                    <th>作者: </th>
+                    <td><input type="text" name="author" class="text"/></td>
+                </tr>
+                <tr>
+                    <th>数量: </th>
+                    <td><input type="text" name="amount" class="text"/></td>
+                </tr>
+                <tr>
+                    <th>出版年: </th>
+                    <td><input type="text" name="publishYear" class="text"/></td>
+                </tr>
+                <tr>
+                    <th>简介: </th>
+                    <td><textarea name="brief" id="" cols="30" rows="6" class="text"></textarea></td>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <input type="submit" value="添加" class="btn"/>
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

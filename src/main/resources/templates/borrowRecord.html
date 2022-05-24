@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="././css/record.css">
+</head>
+<body>
+<div id="root">
+    <h1>历史借出记录
+        <img th:src="@{/images/logo.jpeg}">
+        <span th:text="|当前用户：${session.loginUser.username}|"></span>
+    </h1>
+    <div id="leftBlock" class="block">
+        <ul>
+            <li>
+                <a th:href="@{/index}">首页</a>
+            </li>
+            <li >
+                <a th:href="@{/record}">我的借阅中图书</a>
+            </li>
+            <li id="currentPage">
+                <a th:href="@{/borrowRecord}">我的借出记录</a>
+            </li>
+            <li>
+                <a th:href="@{/returnRecord}">我的归还记录</a>
+            </li>
+            <li th:if="${session.loginUser.username} == 'admin'" >
+                <a th:href="@{/allRecords}" >查看全部用户借阅记录</a>
+            </li>
+            <li th:if="${session.loginUser.username} == 'admin'">
+                <a th:href="@{/add}" >添加新的图书</a>
+            </li>
+            <li>
+                <a th:href="@{/}" id="quit">注销</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="rightBlock" class="block">
+        <table>
+            <thead class="fixedThead">
+                <tr>
+                    <th>借出记录编号</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>借出时间</th>
+                </tr>
+            </thead>
+            <tbody class="scrollTbody">
+                <tr th:each="borrowedRecord : ${session.borrowedList}" th:object="${borrowedRecord}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{book.bookName}"></td>
+                    <td th:text="*{book.author}"></td>
+                    <td th:text="*{date}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

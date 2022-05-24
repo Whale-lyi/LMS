@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>allRecords</title>
+    <script th:src="@{/js/allRecords.js}"></script>
+    <link rel="stylesheet" href="././css/allRecords.css">
+</head>
+<body>
+<div id="root">
+    <span>
+        <h1>全部用户借阅记录
+        <img th:src="@{/images/logo.jpeg}">
+            <span th:text="|当前用户：${session.loginUser.username}|"></span>
+        </h1>
+    </span>
+    <div id="leftBlock" class="block">
+        <ul>
+            <li>
+                <a th:href="@{/index}">首页</a>
+            </li>
+            <li>
+                <a th:href="@{/record}">我的借阅中图书</a>
+            </li>
+            <li>
+                <a th:href="@{/borrowRecord}">我的借出记录</a>
+            </li>
+            <li>
+                <a th:href="@{/returnRecord}">我的归还记录</a>
+            </li>
+            <li th:if="${session.loginUser.username} == 'admin'" id="currentPage">
+                <a th:href="@{/allRecords}" >查看全部用户借阅记录</a>
+            </li>
+            <li th:if="${session.loginUser.username} == 'admin'">
+                <a th:href="@{/add}" >添加新的图书</a>
+            </li>
+            <li>
+                <a th:href="@{/}" id="quit">注销</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="rightBlock" class="block">
+    <table>
+        <tr>
+            <th>记录编号</th>
+            <th>用户</th>
+            <th>书名</th>
+            <th>操作时间</th>
+            <th>类型</th>
+        </tr>
+        <tr th:each="record : ${session.allRecords}" th:object="${record}">
+            <td th:text="*{id}"></td>
+            <td th:text="*{user.username}"></td>
+            <td th:text="*{book.bookName}"></td>
+            <td th:text="*{date}"></td>
+            <td th:switch="*{status}">
+                <span th:case="0">借出</span>
+                <span th:case="1">归还</span>
+            </td>
+        </tr>
+    </table>
+    <div id="pageNo">
+        <input type="button" value="首 页" th:onclick="page(1)" class="btn">
+        <input type="button" value="上一页" th:onclick="|page(${session.recordPageNo - 1})|" th:disabled="${session.recordPageNo==1}" class="btn">
+        <a th:text="1" th:if="${session.recordPageNo > 2}" th:href="@{/allRecords(pageNo = 1)}" class="pageNo"></a>
+        <strong th:if="${session.recordPageNo > 2}">...</strong>
+<!--        <a th:text="${session.recordPageNo - 2}" th:if="${session.recordPageNo > 2}" th:href="@{/allRecords(pageNo = ${session.recordPageNo - 2})}" class="pageNo"></a>-->
+        <a th:text="${session.recordPageNo - 1}" th:if="${session.recordPageNo > 1}" th:href="@{/allRecords(pageNo = ${session.recordPageNo - 1})}" class="pageNo"></a>
+        <strong th:text="${session.recordPageNo}" id="self"></strong>
+        <a th:text="${session.recordPageNo + 1}" th:if="${session.recordPageNo < session.recordPageCount}" th:href="@{/allRecords(pageNo = ${session.recordPageNo + 1})}" class="pageNo"></a>
+<!--        <a th:text="${session.recordPageNo + 2}" th:if="${session.recordPageNo < session.recordPageCount - 1}" th:href="@{/allRecords(pageNo = ${session.recordPageNo + 2})}" class="pageNo"></a>-->
+        <strong th:if="${session.recordPageNo < session.recordPageCount - 1}">...</strong>
+        <a th:text="${session.recordPageCount}" th:if="${session.recordPageNo < session.recordPageCount - 1}" th:href="@{/allRecords(pageNo = ${session.recordPageCount})}" class="pageNo"></a>
+        <input type="button" value="下一页" th:onclick="|page(${session.recordPageNo + 1})|" th:disabled="${session.recordPageNo==session.recordPageCount}" class="btn">
+        <input type="button" value="尾 页" th:onclick="|page(${session.recordPageCount})|" class="btn">
+    </div>
+</div>
+</div>
+</body>
+</html>
