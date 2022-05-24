@@ -3,6 +3,9 @@
 [TOC]
 
 ## 简介
+
+- GitHub地址：https://github.com/Whale-lyi/LMS
+
 - java使用jdk1.8版本，数据库使用mysql8
 - 前端使用HTML5 + css + js + thymeleaf
 - 后端使用springboot + mybatis
