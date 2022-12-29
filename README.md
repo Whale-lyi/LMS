@@ -1,7 +1,5 @@
 # 图书管理系统LMS
 
-[TOC]
-
 ## 简介
 
 - GitHub地址：https://github.com/Whale-lyi/LMS
